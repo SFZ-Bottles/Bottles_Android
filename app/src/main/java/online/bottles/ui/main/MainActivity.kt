@@ -15,6 +15,8 @@ class MainActivity : BaseActivity() {
 
     lateinit var binding: ActivityMainBinding
 
+    private var currentViewPagerPosition = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,7 +45,7 @@ class MainActivity : BaseActivity() {
 
         mainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-
+                currentViewPagerPosition = position //포지션 값 저장
                 // 페이지가 선택될 때 스크롤 바 아이템의 위치를 변경
                 val itemWidth = binding.scrItem1.width // 아이템의 너비
                 // 스크롤 바 아이템 위치 계산
@@ -93,11 +95,11 @@ class MainActivity : BaseActivity() {
             }
         }
     }
-    override fun onPause() {
-        // 뒤로 가기 버튼을 눌러 뒤로 갈 때 onResume을 수행하도록 설정
-        moveViewPager()
-        super.onPause()
+    //뷰 페이저 포지션 값을 프레그먼트에 리턴해서 내가 어떤 뷰 페이저 위치에서 생성되었는지 알 수 있게 해줌
+    fun getCurrentViewPagerPosition(): Int {
+        return currentViewPagerPosition
     }
+
     //홈 페이지로 이동 시 동작
     fun homeFragmentOnResume(){
         moveViewPager()

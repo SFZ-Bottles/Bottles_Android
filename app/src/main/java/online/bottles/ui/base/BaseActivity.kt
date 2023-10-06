@@ -6,7 +6,10 @@ import online.bottles.R
 
 abstract class BaseActivity : AppCompatActivity(){
 
-    //앱 바의 뒤로가기 버튼
+
+
+}
+/*    //앱 바의 뒤로가기 버튼
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             android.R.id.home->{
@@ -15,6 +18,4 @@ abstract class BaseActivity : AppCompatActivity(){
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-}
+    }*/

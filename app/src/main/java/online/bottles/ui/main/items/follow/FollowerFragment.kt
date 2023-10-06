@@ -25,12 +25,20 @@ class FollowerFragment : BaseFragment() {
         super.onResume()
         (activity as? MainActivity)?.followFragmentOnResume()
     }
+    override fun onStop() {
+        (activity as? MainActivity)?.myPageFragmentOnResume()
+        super.onStop()
+
+
+    }
     override fun onDestroy() {
         super.onDestroy()
         (activity as? MainActivity)?.moveViewPager()
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         val pageInclude = binding.pageInclude
 
@@ -48,11 +56,10 @@ class FollowerFragment : BaseFragment() {
         val backButton = binding.backButton
         backButton.setOnClickListener {
             // 뒤로가기 동작 수행
-            (activity as? MainActivity)?.myPageFragmentOnResume()
             requireActivity().onBackPressed()
         }
+
     }
 
 }
-
 

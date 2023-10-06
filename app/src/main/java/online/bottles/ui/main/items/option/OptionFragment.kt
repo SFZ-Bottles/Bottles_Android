@@ -14,7 +14,7 @@ import online.bottles.ui.main.MainActivity
 class OptionFragment : BaseFragment() {
 
     private lateinit var binding: ActivitySettingsBinding
-
+    private var position: Int? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,8 +26,19 @@ class OptionFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         (activity as? MainActivity)?.menuOnResume()
+        position = (activity as? MainActivity)?.getCurrentViewPagerPosition()
     }
 
+    override fun onStop() {
+        val currentPosition = position ?: 0
+        when(currentPosition){
+            0 ->{(activity as? MainActivity)?.homeFragmentOnResume()}
+            1 ->{(activity as? MainActivity)?.searchFragmentOnResume()}
+            2 ->{(activity as? MainActivity)?.messageFragmentOnResume()}
+            3 ->{(activity as? MainActivity)?.myPageFragmentOnResume()}
+        }
+        super.onStop()
+    }
     override fun onDestroy() {
         super.onDestroy()
         (activity as? MainActivity)?.moveViewPager()
@@ -36,6 +47,7 @@ class OptionFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //뒤로가기 설정
         val backButton = binding.backButton
         backButton.setOnClickListener {
             // 슬라이드 아웃 애니메이션 적용
@@ -60,4 +72,5 @@ class OptionFragment : BaseFragment() {
             })
         }
     }
+
 }

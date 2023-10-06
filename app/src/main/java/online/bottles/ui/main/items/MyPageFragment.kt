@@ -27,8 +27,8 @@ class MyPageFragment : BaseFragment() {
         return binding.root
     }
     override fun onResume() {
-        super.onResume()
         (activity as? MainActivity)?.myPageFragmentOnResume()
+        super.onResume()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
