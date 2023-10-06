@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Bottles</string>
+    <string name="userName">userName</string>
+    <string name="userProfileIntro">userProfileIntro</string>
+    <string name="userProfileName">userProfileName</string>
+    <string name="following">0</string>
+    <string name="follower">0</string>
+    <string name="userPreface">test</string>
+    <string name="albumUserName">username</string>
+    <string name="albumText">albumText</string>
+    
+</resources>

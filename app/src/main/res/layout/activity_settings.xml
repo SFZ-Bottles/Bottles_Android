@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/settings"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bottlesGray"/>
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/back_arrow"
+            android:id="@+id/backButton"/>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="settings"
+        android:textColor="@color/bottlesPrimary"
+        android:textSize="30dp"
+        app:layout_anchor="@+id/layout"
+        app:layout_anchorGravity="center" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bottlesGray"
+        app:layout_anchor="@+id/settingOption"
+        app:layout_anchorGravity="top|center" />
+
+
+
+        <LinearLayout
+            android:id="@+id/settingOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:orientation="vertical">
+                <TextView
+                    android:id="@+id/editInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="개인정보 편집"
+                    android:textSize="25dp"
+                    android:textColor="@color/bottlesPrimary"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="60dp"
+                    />
+            <TextView
+                android:id="@+id/introdBottles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bottles란?"
+                android:textSize="25dp"
+                android:textColor="@color/bottlesPrimary"
+                android:layout_gravity="left"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="60dp"
+                />
+            <TextView
+                android:id="@+id/introdSFZ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SFZ란?"
+                android:textSize="25dp"
+                android:textColor="@color/bottlesPrimary"
+                android:layout_gravity="left"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="60dp"
+                />
+            <TextView
+                android:id="@+id/secession"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="회원탈퇴"
+                android:textSize="25dp"
+                android:textColor="@color/bottlesPrimary"
+                android:layout_gravity="left"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="60dp"
+                />
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

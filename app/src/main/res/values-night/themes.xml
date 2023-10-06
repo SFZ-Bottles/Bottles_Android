@@ -1,0 +1,24 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Bottles_FE_Android" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="BottomNavigationStyle">
+        <!-- 비활성화 상태일 때 아이콘 색상 -->
+        <item name="android:colorControlNormal">@android:color/darker_gray</item>
+        <!-- 활성화 상태일 때 아이콘 색상 -->
+        <item name="android:colorControlActivated">@color/bottlesPrimary</item>
+        <!-- 배경 색상 (바탕색) -->
+        <item name="android:background">@android:color/white</item>
+    </style>
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/page">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/messagePage"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/searchUserProfile"
+            >
+            <include
+                layout="@layout/bottles_message_user"/>
+            <include
+                layout="@layout/bottles_message_user"/>
+            <include
+                layout="@layout/bottles_message_user"/>
+            <include
+                layout="@layout/bottles_message_user"/>
+            <include
+                layout="@layout/bottles_message_user"/>
+            <include
+                layout="@layout/bottles_message_user"/>
+            <include
+                layout="@layout/bottles_message_user"/>
+            <include
+                layout="@layout/bottles_message_user"/>
+            <include
+                layout="@layout/bottles_message_user"/>
+            <include
+                layout="@layout/bottles_message_user"/>
+            <include
+                layout="@layout/bottles_message_user"/>
+
+
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

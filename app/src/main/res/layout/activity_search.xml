@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/page">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/searchPage"/>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="325dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/border1">
+
+            <EditText
+                android:drawableStart="@drawable/search_symbol2"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:drawablePadding="8dp"
+                />
+
+        </LinearLayout>
+            <androidx.core.widget.NestedScrollView
+                android:layout_marginTop="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/searchUserProfile"
+                    >
+                    <include
+                        layout="@layout/bottles_search_user"/>
+
+
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

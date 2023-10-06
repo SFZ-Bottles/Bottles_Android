@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.MainActivity">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+        <TextView
+            android:padding="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50dp"
+            android:text="Bottles"
+            android:textColor="@color/bottlesPrimary"/>
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="25dp">
+            <ImageView
+                android:id="@+id/directMessage"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/direct_message"
+                android:visibility="gone"/>
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/addUser"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/add_user"
+                android:visibility="gone"/>
+            <ImageView
+                android:layout_marginLeft="50dp"
+                android:id="@+id/bottlesPlusButton"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/plus"
+                android:visibility="invisible"/>
+            <ImageView
+                android:id="@+id/bottlesMenuButton"
+                android:layout_width="65dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/menu" />
+        </GridLayout>
+    </LinearLayout>
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_marginTop="100dp"
+        android:id="@+id/mainViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="82dp"/>
+
+
+    <FrameLayout
+        android:id="@+id/bottomNavigationFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+
+
+
+        <LinearLayout
+            android:id="@+id/scrBarCont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_weight="1"
+                android:id="@+id/scrItem1"
+                android:layout_width="0dp"
+                android:layout_height="7dp"
+                android:background="@color/gray" />
+
+            <View
+                android:layout_weight="1"
+                android:id="@+id/scrItem2"
+                android:layout_width="0dp"
+                android:layout_height="7dp" />
+
+            <View
+                android:layout_weight="1"
+                android:id="@+id/scrItem3"
+                android:layout_width="0dp"
+                android:layout_height="7dp" />
+
+            <View
+                android:layout_weight="1"
+                android:id="@+id/scrItem4"
+                android:layout_width="0dp"
+                android:layout_height="7dp" />
+
+        </LinearLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="7dp"
+            app:itemIconSize="45dp"
+            app:itemIconTint="@color/bottlesPrimary"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/bottom_navigation_view" />
+
+    </FrameLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
