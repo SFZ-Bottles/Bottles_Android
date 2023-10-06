@@ -30,13 +30,15 @@ class OptionFragment : BaseFragment() {
     }
 
     override fun onStop() {
-        val currentPosition = position ?: 0
+        val currentPosition = position ?: 4
         when(currentPosition){
-            0 ->{(activity as? MainActivity)?.homeFragmentOnResume()}
+            0 ->{(activity as? MainActivity)?.homeFragmentOnResume() }
             1 ->{(activity as? MainActivity)?.searchFragmentOnResume()}
             2 ->{(activity as? MainActivity)?.messageFragmentOnResume()}
             3 ->{(activity as? MainActivity)?.myPageFragmentOnResume()}
+            4 ->{ (activity as? MainActivity)?.otherUserPageFragmentOnResume()}
         }
+        sildeOutAnime()
         super.onStop()
     }
     override fun onDestroy() {
@@ -50,27 +52,25 @@ class OptionFragment : BaseFragment() {
         //뒤로가기 설정
         val backButton = binding.backButton
         backButton.setOnClickListener {
-            // 슬라이드 아웃 애니메이션 적용
-            val slideOutAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_out_left)
-            view.startAnimation(slideOutAnimation)
-
-            // 애니메이션 리스너 등록
-            slideOutAnimation.setAnimationListener(object : Animation.AnimationListener {
-                override fun onAnimationStart(animation: Animation?) {
-                    // 애니메이션 시작 시 수행할 작업
-                }
-
-                override fun onAnimationEnd(animation: Animation?) {
-                    // 애니메이션이 종료되면 뒤로가기 동작 수행
-                    (activity as? MainActivity)?.moveViewPager()
-                    requireActivity().onBackPressed()
-                }
-
-                override fun onAnimationRepeat(animation: Animation?) {
-                    // 애니메이션 반복 시 수행할 작업
-                }
-            })
+            requireActivity().onBackPressed()
         }
+    }
+    private fun sildeOutAnime(){
+        val slideOutAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_out_left)
+        view?.startAnimation(slideOutAnimation)
+
+        // 애니메이션 리스너 등록
+        slideOutAnimation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {
+                // 애니메이션 시작 시 수행할 작업
+            }
+            override fun onAnimationEnd(animation: Animation?) {
+                // 애니메이션이 종료되면 뒤로가기 동작 수행
+            }
+            override fun onAnimationRepeat(animation: Animation?) {
+                // 애니메이션 반복 시 수행할 작업
+            }
+        })
     }
 
 }

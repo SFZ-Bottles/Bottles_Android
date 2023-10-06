@@ -69,7 +69,6 @@ class MainActivity : BaseActivity() {
 
         //메뉴 버튼 누르는 동작
         binding.bottlesMenuButton.setOnClickListener {
-
             val transaction = supportFragmentManager.beginTransaction()
             transaction.setCustomAnimations(
                 R.anim.slide_in_left,  // 드로어가 나타날 때 사용할 애니메이션
