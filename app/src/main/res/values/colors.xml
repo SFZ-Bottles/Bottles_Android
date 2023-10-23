@@ -10,5 +10,6 @@
     <color name="bottlesPrimary">#FF000000</color>
     <color name="bottlesGray">#FF8E8E8E</color>
     <color name="gray">#FFD9D9D9</color>
+    <color name="bottlesYellow">#FFF5DC9B</color>
     <color name="bottom_navigation_item_icon_tint">@color/bottlesPrimary</color>
 </resources>

@@ -7,20 +7,21 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import online.bottles.R
-import online.bottles.databinding.ActivitySettingsBinding
+import online.bottles.databinding.FragmentSettingsBinding
 import online.bottles.ui.base.BaseFragment
 import online.bottles.ui.main.MainActivity
 
-class OptionFragment : BaseFragment() {
+class MenuFragment : BaseFragment() {
 
-    private lateinit var binding: ActivitySettingsBinding
+    private lateinit var binding: FragmentSettingsBinding
     private var position: Int? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ActivitySettingsBinding.inflate(inflater, container, false)
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onResume() {
@@ -39,6 +40,7 @@ class OptionFragment : BaseFragment() {
             4 ->{ (activity as? MainActivity)?.otherUserPageFragmentOnResume()}
         }
         sildeOutAnime()
+        (activity as? MainActivity)?.closeMenuFragment()
         super.onStop()
     }
     override fun onDestroy() {
@@ -48,6 +50,13 @@ class OptionFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.editInfo.setOnClickListener(){
+            val settingUserPreface = userPrefaceSettingFragment()
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.page, settingUserPreface)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
 
         //뒤로가기 설정
         val backButton = binding.backButton

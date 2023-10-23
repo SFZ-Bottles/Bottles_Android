@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import online.bottles.R
-import online.bottles.databinding.ActivityOtherUserPageBinding
+import online.bottles.databinding.FragmentOtherUserPageBinding
 import online.bottles.ui.base.BaseFragment
 import online.bottles.ui.main.MainActivity
 import online.bottles.ui.main.items.follow.FollowerFragment
@@ -13,7 +13,7 @@ import online.bottles.ui.main.items.follow.FollowingFragment
 
 class OtherUserPageFragment : BaseFragment() {
 
-    private var _binding : ActivityOtherUserPageBinding? = null
+    private var _binding : FragmentOtherUserPageBinding? = null
 
     private val binding get() = _binding!!
 
@@ -22,7 +22,7 @@ class OtherUserPageFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ActivityOtherUserPageBinding.inflate(inflater, container, false)
+        _binding = FragmentOtherUserPageBinding.inflate(inflater, container, false)
         return binding.root
 
     }

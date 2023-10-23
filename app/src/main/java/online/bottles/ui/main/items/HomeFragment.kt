@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import online.bottles.databinding.ActivityHomeBinding
+import online.bottles.databinding.FragmentPage1HomeBinding
 import online.bottles.ui.base.BaseFragment
 import online.bottles.ui.main.MainActivity
 
 class HomeFragment : BaseFragment() {
 
-    private var _binding : ActivityHomeBinding? = null
+    private var _binding : FragmentPage1HomeBinding? = null
 
     private val binding get() = _binding!!
 
@@ -20,7 +20,7 @@ class HomeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ActivityHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentPage1HomeBinding.inflate(inflater, container, false)
         return binding.root
     }
     override fun onResume() {

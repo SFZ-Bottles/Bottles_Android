@@ -55,7 +55,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <include layout="@layout/activity_follow_user"
+            <include layout="@layout/fragment_follow_user"
                 android:id="@+id/pageInclude"/>
 
 

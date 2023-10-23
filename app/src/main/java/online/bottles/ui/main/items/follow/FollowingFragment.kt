@@ -4,21 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import online.bottles.R
-import online.bottles.databinding.ActivityFollowingBinding
+import online.bottles.databinding.FragmentFollowingBinding
 import online.bottles.ui.base.BaseFragment
 import online.bottles.ui.main.MainActivity
 import online.bottles.ui.main.items.OtherUserPageFragment
 
 class FollowingFragment : BaseFragment() {
-    private lateinit var binding: ActivityFollowingBinding
+    private lateinit var binding: FragmentFollowingBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ActivityFollowingBinding.inflate(inflater, container, false)
+        binding = FragmentFollowingBinding.inflate(inflater, container, false)
         return binding.root
     }
 

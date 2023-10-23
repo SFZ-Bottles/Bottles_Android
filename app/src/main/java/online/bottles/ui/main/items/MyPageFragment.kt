@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import online.bottles.R
-import online.bottles.databinding.ActivityMyPageBinding
+import online.bottles.databinding.FragmentPage4MyPageBinding
 import online.bottles.ui.base.BaseFragment
 import online.bottles.ui.main.MainActivity
 import online.bottles.ui.main.items.follow.FollowerFragment
@@ -13,7 +13,7 @@ import online.bottles.ui.main.items.follow.FollowingFragment
 
 class MyPageFragment : BaseFragment() {
 
-    private var _binding : ActivityMyPageBinding? = null
+    private var _binding : FragmentPage4MyPageBinding?= null
 
     private val binding get() = _binding!!
 
@@ -23,7 +23,7 @@ class MyPageFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ActivityMyPageBinding.inflate(inflater, container, false)
+        _binding = FragmentPage4MyPageBinding.inflate(inflater, container, false)
         return binding.root
     }
     override fun onResume() {

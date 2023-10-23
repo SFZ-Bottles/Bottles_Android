@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import online.bottles.databinding.ActivitySearchBinding
+import online.bottles.databinding.FragmentPage2SearchBinding
 import online.bottles.ui.base.BaseFragment
 import online.bottles.ui.main.MainActivity
 
 class SearchFragment : BaseFragment(){
 
-    private var _binding : ActivitySearchBinding? = null
+    private var _binding : FragmentPage2SearchBinding? = null
 
     private val binding get() = _binding!!
 
@@ -20,7 +20,7 @@ class SearchFragment : BaseFragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ActivitySearchBinding.inflate(inflater, container, false)
+        _binding = FragmentPage2SearchBinding.inflate(inflater, container, false)
         return binding.root
     }
     override fun onResume() {

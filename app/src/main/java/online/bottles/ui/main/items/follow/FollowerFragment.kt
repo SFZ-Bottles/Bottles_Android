@@ -5,19 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import online.bottles.R
-import online.bottles.databinding.ActivityFollowerBinding
+import online.bottles.databinding.FragmentFollowerBinding
 import online.bottles.ui.base.BaseFragment
 import online.bottles.ui.main.MainActivity
 import online.bottles.ui.main.items.OtherUserPageFragment
 
 class FollowerFragment : BaseFragment() {
-    private lateinit var binding: ActivityFollowerBinding
+    private lateinit var binding: FragmentFollowerBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ActivityFollowerBinding.inflate(inflater, container, false)
+        binding = FragmentFollowerBinding.inflate(inflater, container, false)
         return binding.root
     }
 

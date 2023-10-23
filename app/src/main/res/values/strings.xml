@@ -1,6 +1,8 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Bottles</string>
     <string name="userName">userName</string>
+    <string name="userEmail">ex@nvvv.com</string>
+    <string name="userInfo">userInfo</string>
     <string name="userProfileIntro">userProfileIntro</string>
     <string name="userProfileName">userProfileName</string>
     <string name="following">0</string>
@@ -8,5 +10,6 @@
     <string name="userPreface">test</string>
     <string name="albumUserName">username</string>
     <string name="albumText">albumText</string>
-    
+    <string name="edit_underLine"><u>Edit</u></string>
+    <string name="delete_underLine"><u>delete</u></string>
 </resources>
