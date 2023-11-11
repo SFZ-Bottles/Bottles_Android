@@ -1,291 +1,564 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
+
     <LinearLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
+            android:id="@+id/backButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="5dp"
-            android:src="@drawable/back_arrow"
-            android:id="@+id/backButton"/>
+            android:src="@drawable/back_arrow" />
 
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/templateLayout"
-        android:background="@drawable/border6_morejag"
-        android:layout_marginTop="45dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"
+
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="175dp"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Template"
-            android:textSize="25dp"
-            android:textColor="@color/bottlesPrimary"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            />
-        <HorizontalScrollView
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout"
+        android:paddingBottom="30dp">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-
-                <RelativeLayout
-                    android:visibility="visible"
-                    android:id="@+id/addTitleButton"
-                    android:layout_width="110dp"
-                    android:layout_height="100dp">
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/gray"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginLeft="12dp"/>
-
-                    <View
-                        android:id="@+id/selectedTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/border5_yellow"
-                        android:visibility="invisible" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/small_plus" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="cover"
-                        android:textColor="@color/white"
-                        android:textSize="22dp" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/addImageButton"
-                    android:layout_width="110dp"
-                    android:layout_height="100dp">
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/gray"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginLeft="12dp"/>
-                    <View
-                        android:visibility="invisible"
-                        android:id="@+id/selectedImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/border5_yellow"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginLeft="12dp"
-                        />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/small_plus" />
-
-                    <ImageView
-                        android:id="@+id/ima"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerInParent="true"
-                        android:layout_marginTop="15dp"
-                        android:src="@drawable/add_image" />
-                    <TextView
-                        android:layout_below="@+id/ima"
-                        android:layout_centerHorizontal="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="image"
-                        android:textColor="@color/white"
-                        android:textSize="20dp" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/addTextButton"
-                    android:layout_width="110dp"
-                    android:layout_height="100dp">
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/gray"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginLeft="12dp"/>
-                    <View
-                        android:visibility="invisible"
-                        android:id="@+id/selectedText"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/border5_yellow"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginLeft="12dp"
-                        />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/small_plus" />
-
-                    <ImageView
-                        android:id="@+id/tex"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerInParent="true"
-                        android:layout_marginTop="19dp"
-                        android:src="@drawable/add_text" />
-                    <TextView
-                        android:layout_below="@+id/tex"
-                        android:layout_centerHorizontal="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="text"
-                        android:textColor="@color/white"
-                        android:textSize="20dp" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/addVideoButton"
-                    android:layout_width="110dp"
-                    android:layout_height="100dp">
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/gray"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginLeft="12dp"/>
-                    <View
-                        android:visibility="invisible"
-                        android:id="@+id/selectedVideo"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/border5_yellow"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginLeft="12dp"
-                        />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/small_plus" />
-
-                    <ImageView
-                        android:id="@+id/vid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerInParent="true"
-                        android:layout_marginTop="20dp"
-                        android:src="@drawable/add_video" />
-                    <TextView
-                        android:layout_below="@+id/vid"
-                        android:layout_centerHorizontal="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="video"
-                        android:textColor="@color/white"
-                        android:textSize="20dp" />
-                </RelativeLayout>
-            </LinearLayout>
-        </HorizontalScrollView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="275dp"
-        android:layout_marginRight="1dp"
-        android:background="@drawable/border4">
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/includeTemplate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:id="@+id/templateLayout"
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/border6_morejag"
+                android:orientation="vertical"
+                android:visibility="visible">
 
-                <include
-                    layout="@layout/add_template_cover"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Template"
+                    android:textColor="@color/bottlesPrimary"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
 
-                <include
-                    layout="@layout/add_template"/>
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/addTitleButton"
+                            android:layout_marginLeft="40dp"
+                            android:layout_width="110dp"
+                            android:layout_height="100dp"
+                            android:visibility="visible">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="12dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@color/gray" />
+
+                            <View
+                                android:id="@+id/selectedTitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="12dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/border5_yellow"
+                                android:visibility="invisible" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:src="@drawable/small_plus" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="cover"
+                                android:textColor="@color/white"
+                                android:textSize="22dp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/addImageButton"
+                            android:layout_width="110dp"
+                            android:layout_height="100dp">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="12dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@color/gray" />
+
+                            <View
+                                android:id="@+id/selectedImage"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="12dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/border5_yellow"
+                                android:visibility="invisible" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:src="@drawable/small_plus" />
+
+                            <ImageView
+                                android:id="@+id/ima"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="15dp"
+                                android:src="@drawable/add_image" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/ima"
+                                android:layout_centerHorizontal="true"
+                                android:text="image"
+                                android:textColor="@color/white"
+                                android:textSize="20dp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/addTextButton"
+                            android:layout_width="110dp"
+                            android:layout_height="100dp">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="12dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@color/gray" />
+
+                            <View
+                                android:id="@+id/selectedText"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="12dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/border5_yellow"
+                                android:visibility="invisible" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:src="@drawable/small_plus" />
+
+                            <ImageView
+                                android:id="@+id/textImage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="19dp"
+                                android:src="@drawable/add_text" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/textImage"
+                                android:layout_centerHorizontal="true"
+                                android:text="text"
+                                android:textColor="@color/white"
+                                android:textSize="20dp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/addVideoButton"
+                            android:layout_width="110dp"
+                            android:layout_height="100dp">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="12dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@color/gray" />
+
+                            <View
+                                android:id="@+id/selectedVideo"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="12dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/border5_yellow"
+                                android:visibility="invisible" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:src="@drawable/small_plus" />
+
+                            <ImageView
+                                android:id="@+id/vid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/add_video" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/vid"
+                                android:layout_centerHorizontal="true"
+                                android:text="video"
+                                android:textColor="@color/white"
+                                android:textSize="20dp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </HorizontalScrollView>
             </LinearLayout>
-        </HorizontalScrollView>
 
-    </LinearLayout>
-    <TextView
-        android:layout_marginTop="430dp"
-        android:layout_marginLeft="35dp"
-        android:layout_width="140dp"
-        android:layout_height="42dp"
-        android:text="preview"
-        android:textColor="@color/bottlesPrimary"
-        android:textSize="20dp"
-        android:background="@drawable/border1"
-        android:gravity="center"
-        android:id="@+id/previewButton"
-        />
-    <TextView
-        android:layout_marginTop="430dp"
-        android:layout_marginRight="35dp"
-        android:layout_width="140dp"
-        android:layout_height="42dp"
-        android:text="post"
-        android:textSize="20dp"
-        android:textColor="@color/bottlesPrimary"
-        android:background="@drawable/border1"
-        android:layout_gravity="right"
-        android:gravity="center"
-        android:id="@+id/postButton"/>
+            <LinearLayout
+                android:id="@+id/selectedOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/templateLayout"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/border4">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/includeTemplate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <include layout="@layout/add_template_cover" />
+
+                        <include layout="@layout/add_template" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/createTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/selectedOptions"
+                android:layout_gravity="center"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/border4"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Title"
+                    android:textColor="@color/bottlesPrimary"
+                    android:textSize="26dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/titleName"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/border4" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="Preface"
+                    android:textColor="@color/bottlesPrimary"
+                    android:textSize="26dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/titlePreface"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/border4" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="cover image"
+                    android:textColor="@color/bottlesPrimary"
+                    android:textSize="26dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/titleImageUpload"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border1"
+                    android:gravity="center"
+                    android:text="image upload"
+                    android:textColor="@color/bottlesPrimary"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:id="@+id/titleImageSrc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/title_image" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/createText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/selectedOptions"
+                android:layout_gravity="center"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/border4"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Title"
+                    android:textColor="@color/bottlesPrimary"
+                    android:textSize="26dp"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:id="@+id/text"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@drawable/border4"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/createImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/selectedOptions"
+                android:layout_gravity="center"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/border4"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="gone">
+                <TextView
+                    android:padding="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="image"
+                    android:textColor="@color/bottlesPrimary"
+                    android:textSize="26dp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/imageUpload"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/border1"
+                    android:gravity="center"
+                    android:text="image upload"
+                    android:textColor="@color/bottlesPrimary"
+                    android:textSize="20dp" />
+                <ImageView
+                    android:id="@+id/imageSrc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/upload_image"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/createVideo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/selectedOptions"
+                android:layout_gravity="center"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/border4"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="gone">
+                <TextView
+                    android:padding="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="video"
+                    android:textColor="@color/bottlesPrimary"
+                    android:textSize="26dp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/videoUpload"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/border1"
+                    android:gravity="center"
+                    android:text="video upload"
+                    android:textColor="@color/bottlesPrimary"
+                    android:textSize="20dp" />
+                <ImageView
+                    android:id="@+id/videoSrc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/upload_image"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:visibility="visible"
+                android:id="@+id/previewButton"
+                android:layout_width="140dp"
+                android:layout_height="42dp"
+                android:layout_marginLeft="37dp"
+                android:layout_marginTop="35dp"
+                android:layout_below="@+id/selectedOptions"
+                android:background="@drawable/border1"
+                android:gravity="center"
+                android:text="preview"
+                android:textColor="@color/bottlesPrimary"
+                android:textSize="20dp" />
+
+            <TextView
+                android:visibility="visible"
+                android:id="@+id/postButton"
+                android:layout_width="140dp"
+                android:layout_height="42dp"
+                android:layout_alignTop="@+id/previewButton"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="37dp"
+                android:background="@drawable/border1"
+                android:gravity="center"
+                android:text="post"
+                android:textColor="@color/bottlesPrimary"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_marginTop="30dp"
+                android:visibility="gone"
+                android:id="@+id/addTitle"
+                android:layout_width="140dp"
+                android:layout_height="42dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/createTitle"
+                android:background="@drawable/border1"
+                android:gravity="center"
+                android:text="Add"
+                android:textColor="@color/bottlesPrimary"
+                android:textSize="20dp"/>
+            <TextView
+                android:layout_marginTop="30dp"
+                android:visibility="gone"
+                android:id="@+id/addImage"
+                android:layout_width="140dp"
+                android:layout_height="42dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/createTitle"
+                android:background="@drawable/border1"
+                android:gravity="center"
+                android:text="Add"
+                android:textColor="@color/bottlesPrimary"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_marginTop="30dp"
+                android:visibility="gone"
+                android:id="@+id/addText"
+                android:layout_width="140dp"
+                android:layout_height="42dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/createTitle"
+                android:background="@drawable/border1"
+                android:gravity="center"
+                android:text="Add"
+                android:textColor="@color/bottlesPrimary"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_marginTop="30dp"
+                android:visibility="gone"
+                android:id="@+id/addVideo"
+                android:layout_width="140dp"
+                android:layout_height="42dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/createTitle"
+                android:background="@drawable/border1"
+                android:gravity="center"
+                android:text="Add"
+                android:textColor="@color/bottlesPrimary"
+                android:textSize="20dp"/>
 
 
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

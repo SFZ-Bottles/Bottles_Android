@@ -120,6 +120,7 @@ class MainActivity : BaseActivity() {
     //서치 페이지로 이동 시 동작
     fun searchFragmentOnResume(){
         moveViewPager()
+        bottlesVisible(1)
 
     }
     //메시지 페이지로 이동 시 동작

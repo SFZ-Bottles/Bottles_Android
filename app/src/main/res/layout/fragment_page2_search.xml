@@ -13,10 +13,13 @@
 
 
         <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="325dp"
-            android:layout_height="45dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
             android:background="@drawable/border1">
 
             <EditText
@@ -29,6 +32,7 @@
         </LinearLayout>
             <androidx.core.widget.NestedScrollView
                 android:layout_marginTop="60dp"
+                android:layout_marginBottom="82dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

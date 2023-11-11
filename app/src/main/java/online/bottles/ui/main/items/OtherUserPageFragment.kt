@@ -13,7 +13,7 @@ import online.bottles.ui.main.items.follow.FollowingFragment
 
 class OtherUserPageFragment : BaseFragment() {
 
-    private var _binding : FragmentOtherUserPageBinding? = null
+    private var _binding: FragmentOtherUserPageBinding? = null
 
     private val binding get() = _binding!!
 
@@ -36,11 +36,11 @@ class OtherUserPageFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
         val follower = binding.followerText
         val following = binding.followingText
         val followerCount = binding.follower
         val followingCount = binding.following
+        val backButton = binding.backArrowButton
 
         followerCount.setOnClickListener {
             val followerFragment = FollowerFragment()
@@ -72,10 +72,10 @@ class OtherUserPageFragment : BaseFragment() {
             transaction.addToBackStack(null)
             transaction.commit()
         }
-
+        backButton.setOnClickListener() {
+            requireActivity().onBackPressed()
+        }
 
     }
-
-
 
 }

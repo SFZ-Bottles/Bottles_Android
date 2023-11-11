@@ -57,7 +57,7 @@ class RegisterActivity: BaseActivity() {
         val client = OkHttpClient.Builder().build()
         //요청
         val request = Request.Builder()
-            .url("http:/14.4.145.80:8000/api/users/")
+            .url("http:/?.?.?.?/api/users/")
             .post(jsonRequestBody)
             .build()
         val gson = Gson()

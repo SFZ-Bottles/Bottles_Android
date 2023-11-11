@@ -15,6 +15,7 @@
             android:id="@+id/homePage"/>
 
         <androidx.core.widget.NestedScrollView
+            android:layout_marginBottom="82dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
