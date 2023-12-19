@@ -65,7 +65,7 @@
 
                         <RelativeLayout
                             android:id="@+id/addTitleButton"
-                            android:layout_marginLeft="40dp"
+                            android:layout_marginLeft="60dp"
                             android:layout_width="110dp"
                             android:layout_height="100dp"
                             android:visibility="visible">
@@ -269,21 +269,19 @@
                 android:background="@drawable/border4">
 
                 <HorizontalScrollView
+                    android:clipChildren="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp">
-
+\
                     <LinearLayout
                         android:id="@+id/includeTemplate"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="horizontal">
 
-                        <include layout="@layout/add_template_cover" />
-
-                        <include layout="@layout/add_template" />
                     </LinearLayout>
                 </HorizontalScrollView>
 
@@ -381,7 +379,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Title"
+                    android:text="Text"
                     android:textColor="@color/bottlesPrimary"
                     android:textSize="26dp"
                     android:textStyle="bold"/>
@@ -463,13 +461,16 @@
                     android:text="video upload"
                     android:textColor="@color/bottlesPrimary"
                     android:textSize="20dp" />
-                <ImageView
+                <VideoView
                     android:id="@+id/videoSrc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/upload_image"
                     />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/testtext"/>
 
             </LinearLayout>
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_gravity="right"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/sentTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20:30"
+        android:textSize="12dp"
+        android:textColor="@color/bottlesGray"
+        android:layout_marginTop="20dp"/>
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:background="@drawable/border8_sent_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/messageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="네"
+            android:textSize="20dp"
+            android:textColor="@color/bottlesPrimary"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

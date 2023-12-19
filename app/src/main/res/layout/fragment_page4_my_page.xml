@@ -24,21 +24,21 @@
                 android:gravity="center"
                 android:visibility="visible"
                 android:orientation="vertical">
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/test"
-                        android:id="@+id/profUserImage"
-                        android:background="@drawable/circle"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/userName"
-                        android:textSize="23dp"
-                        android:textColor="@color/bottlesPrimary"
-                        android:id="@+id/profUserName"
-                        />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/test"
+                    android:id="@+id/profUserImage"
+                    android:background="@drawable/circle"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/userName"
+                    android:textSize="23dp"
+                    android:textColor="@color/bottlesPrimary"
+                    android:id="@+id/profUserName"
+                    />
                 <LinearLayout
                     android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"

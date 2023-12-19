@@ -2,6 +2,9 @@ package online.bottles.ui.main.items.create
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -10,33 +13,52 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.MediaController
 import android.widget.RelativeLayout
+import android.widget.TextView
+import android.widget.VideoView;
+import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import online.bottles.R
 import online.bottles.databinding.FragmentCreateAnAlbumBinding
 import online.bottles.ui.base.BaseFragment
 import online.bottles.ui.main.MainActivity
-import org.json.JSONArray
 import org.json.JSONObject
+
 
 class CreateAnAlbumFragment : BaseFragment() {
     private lateinit var binding: FragmentCreateAnAlbumBinding
     private val REQ_GALLERY = 1001
+    private var uri = "https://192.168.0.1"
     private val REQ_STORAGE_PERMISSION = 1002
     private var selectedImageType = 0 //0->선언안됨, 1->titleImage,2->image
-
+    private var albumOrder = 0// createAlbum Object들의 순서를 명시
+    private lateinit var callback: OnBackPressedCallback//뒤로가기 커스텀
     private var imageUri : Uri? = null
+    private var videoUri :Uri? = null
     private var titleImageUri : Uri? = null
     //private var jsonObject
-    private var albumObject = JSONObject()
-    private var albumArray = JSONArray()
+    private var albumData = JSONObject()//album의 실질적인 data 보내질 때 data,albumData
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding =FragmentCreateAnAlbumBinding.inflate(inflater, container, false)
+
+
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // 뒤로가기 클릭시 동작하는 로직
+                if(albumOrder > 0){
+                    showExitDialog()
+                } else {
+                    justBack()
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,callback)
         return binding.root
     }
 
@@ -71,7 +93,7 @@ class CreateAnAlbumFragment : BaseFragment() {
             }
         }
     }
-    private fun selectGallery() {
+    private fun checkAndOpenGallery(mimeType: String) {
         var writePermission = ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
         var readPermission = ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
 
@@ -82,9 +104,17 @@ class CreateAnAlbumFragment : BaseFragment() {
             // 권한이 있으면 갤러리 열기
             val intent = Intent(Intent.ACTION_PICK)
             intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            intent.type = "image/*"
+            intent.type = mimeType
             startActivityForResult(intent, REQ_GALLERY)
         }
+    }
+
+    private fun selectImage() {
+        checkAndOpenGallery("image/*")
+    }
+
+    private fun selectVideo() {
+        checkAndOpenGallery("video/*")
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -96,9 +126,16 @@ class CreateAnAlbumFragment : BaseFragment() {
                 // 선택된 이미지를 처리하는 로직.
                 when(selectedImageType){
                     1 ->{ binding.titleImageSrc.setImageURI(selectedImageUri)
-                          titleImageUri = selectedImageUri}// 이미지 uri 잠시동안 저장
+                        titleImageUri = selectedImageUri}// 이미지 uri 잠시동안 저장
                     2-> { binding.imageSrc.setImageURI(selectedImageUri)
-                          imageUri = selectedImageUri}
+                        imageUri = selectedImageUri}
+                    3->{ val video = binding.videoSrc
+                        val mc = MediaController(requireContext()) // 비디오 컨트롤 가능하게(일시정지, 재시작 등)
+                        video.setMediaController(mc)
+                        video.setVideoPath(selectedImageUri.toString())
+                        video.start()
+                        videoUri = selectedImageUri
+                        binding.testtext.setText( videoUri.toString())}
                 }
 
             }
@@ -106,7 +143,10 @@ class CreateAnAlbumFragment : BaseFragment() {
     }
 
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
+    }
     override fun onStart(){
         super.onStart()
         checkPermissionAndRequest()
@@ -115,20 +155,18 @@ class CreateAnAlbumFragment : BaseFragment() {
         super.onResume()
         (activity as? MainActivity)?.createAnAlbumFragmentOnResume()
     }
-
     override fun onStop() {
-        (activity as? MainActivity)?.myPageFragmentOnResume()
-        albumArray.removeAll()//엘범어래이 모두 삭제
-        super.onStop()
+            (activity as? MainActivity)?.myPageFragmentOnResume()
+            super.onStop()
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        albumObject.put("is_private",false) //일반 게시글을 표시
 
         //뒤로가기 버튼
         binding.backButton.setOnClickListener(){
-            requireActivity().onBackPressed()
+           requireActivity().onBackPressed()
         }
         //타이틀 선택시
         binding.addTitleButton.setOnClickListener(){
@@ -149,34 +187,116 @@ class CreateAnAlbumFragment : BaseFragment() {
         //타이틀 이미지 고르는 동작
         binding.titleImageUpload.setOnClickListener(){
             selectedImageType = 1
-            selectGallery()
+            selectImage()
         }
         //image를 고르는 동작
         binding.imageUpload.setOnClickListener(){
             selectedImageType = 2
-            selectGallery()
+            selectImage()
         }
-        //타이틀 작성 완료 후 Add 버튼을 누를 때
+        //video를 고르는 동작
+        binding.videoUpload.setOnClickListener(){
+            selectedImageType = 3
+            selectVideo()
+        }
+        //타이틀(cover) 작성 완료 후 Add 버튼을 누를 때
         binding.addTitle.setOnClickListener(){
+            val titleObject = JSONObject()
+            titleObject.put("order",++albumOrder)
+            titleObject.put("species","cover")
+            titleObject.put("data",titleImageUri)
+            albumData.put("pages",titleObject)
+            iconVisible(5)
+
+            val includeTemplate = layoutInflater.inflate(R.layout.add_template_cover,null)
+            binding.includeTemplate.addView(includeTemplate)
+            val setOrder = includeTemplate.findViewById<TextView>(R.id.order)
+            setOrder.text ="<"+albumOrder+"/12>"
+            binding.text.text.clear()
+
         }
+
         //Text 작성 완료 후 Add 버튼을 누를 때
         binding.addText.setOnClickListener(){
+            val text = binding.text.text.toString()
+            if(albumOrder >= 12){
+                showMaxItemCountDialog()
+                iconVisible(5)
+            }else{ if (text.isEmpty()){
+                showTextIsNullDialog()
+            }else{
+                val textData = JSONObject()
+                textData.put("order",++albumOrder)
+                textData.put("species","text")
+                textData.put("data",text)
+                albumData.put("pages",textData)
+                iconVisible(5)
+
+
+                val includeTemplate = layoutInflater.inflate(R.layout.add_template_text,null)
+                binding.includeTemplate.addView(includeTemplate)
+                val setOrder = includeTemplate.findViewById<TextView>(R.id.order)
+                setOrder.text ="<"+albumOrder+"/12>"
+                binding.text.text.clear() //적혀있는 글 삭제
+                }
+            }
 
         }
         //image 작성 완료 후 Add 버튼을 누를 때
         binding.addImage.setOnClickListener(){
-            albumObject.put()
+            if(albumOrder >= 12){
+                showMaxItemCountDialog()
+                iconVisible(5)
+            }else{
+                val imageData = JSONObject()
+                //image 값이 기본 값일 경우 다이얼로그 출력
+
+                imageData.put("order",++albumOrder)
+                imageData.put("species","image")
+                imageData.put("data",imageUri)
+                albumData.put("pages",imageData)
+                iconVisible(5)
+
+                //해당 imageView에 표시된 사진 원상복구하기
+                val resourceId = R.drawable.test
+                val defaultImage = ContextCompat.getDrawable(requireContext(), resourceId)
+                binding.imageSrc.setImageDrawable(defaultImage)
+
+                //include 작업
+                val includeTemplate = layoutInflater.inflate(R.layout.add_template_image,null)
+                binding.includeTemplate.addView(includeTemplate)
+                val setOrder = includeTemplate.findViewById<TextView>(R.id.order)
+                setOrder.text ="<"+albumOrder+"/12>"}
+
+
         }
         //Video 작성 완료 후 Add 버튼을 누를 때
-        binding.addVideo.setOnClickListener(){}
+        binding.addVideo.setOnClickListener(){
+            if(albumOrder >= 12){
+                showMaxItemCountDialog()
+                iconVisible(5)
+            }else{
+                val videoData = JSONObject()
+                videoData.put("order",++albumOrder)
+                videoData.put("species","video")
+                videoData.put("data",videoUri)
+                albumData.put("pages",videoData)
+                iconVisible(5)
+                //video 뷰 원상복구
+                binding.videoSrc.setVideoPath("asd")
 
-
+                val includeTemplate = layoutInflater.inflate(R.layout.add_template_video,null)
+                binding.includeTemplate.addView(includeTemplate)
+                val setOrder = includeTemplate.findViewById<TextView>(R.id.order)
+                setOrder.text ="<"+albumOrder+"/12>"}
+        }
     }
     fun iconVisible(value:Int) {
         val selectTitle = binding.selectedTitle//첫 번째 인자 title 테두리
         val selectText = binding.selectedText//text 테두리
         val selectImage = binding.selectedImage
         val selectVideo = binding.selectedVideo
+        val selectedOptions = binding.selectedOptions
 
         val includeTemplate = binding.includeTemplate//두 번째 선택 목록 창
 
@@ -204,6 +324,7 @@ class CreateAnAlbumFragment : BaseFragment() {
                 createImage.visibility = View.GONE
                 createVideo.visibility = View.GONE
 
+                selectedOptions.visibility = View.GONE
                 selectTitle.visibility = View.VISIBLE
                 selectText.visibility = View.GONE
                 selectImage.visibility = View.GONE
@@ -227,6 +348,7 @@ class CreateAnAlbumFragment : BaseFragment() {
                 createImage.visibility = View.GONE
                 createVideo.visibility = View.GONE
 
+                selectedOptions.visibility = View.GONE
                 selectTitle.visibility = View.GONE
                 selectText.visibility = View.VISIBLE
                 selectImage.visibility = View.GONE
@@ -251,6 +373,7 @@ class CreateAnAlbumFragment : BaseFragment() {
                 createImage.visibility = View.VISIBLE
                 createVideo.visibility = View.GONE
 
+                selectedOptions.visibility = View.GONE
                 selectTitle.visibility = View.GONE
                 selectText.visibility = View.GONE
                 selectImage.visibility = View.VISIBLE
@@ -274,6 +397,7 @@ class CreateAnAlbumFragment : BaseFragment() {
                 createImage.visibility = View.GONE
                 createVideo.visibility = View.VISIBLE
 
+                selectedOptions.visibility = View.GONE
                 selectTitle.visibility = View.GONE
                 selectText.visibility = View.GONE
                 selectImage.visibility = View.GONE
@@ -288,13 +412,83 @@ class CreateAnAlbumFragment : BaseFragment() {
                 previewButton.visibility = View.GONE
                 postButton.visibility = View.GONE
             }
+            //아무것도 선택되지 않은 상태
+            5->{
+                includeTemplate.visibility = View.VISIBLE
+                createTitle.visibility = View.GONE
+                createText.visibility = View.GONE
+                createImage.visibility = View.GONE
+                createVideo.visibility = View.GONE
+
+                selectedOptions.visibility = View.VISIBLE
+                selectTitle.visibility = View.GONE
+                selectText.visibility = View.GONE
+                selectImage.visibility = View.GONE
+                selectVideo.visibility = View.GONE
+
+                addTitle.visibility = View.GONE
+                addText.visibility = View.GONE
+                addImage.visibility = View.GONE
+                addVideo.visibility = View.GONE
+                previewButton.visibility = View.VISIBLE
+                postButton.visibility = View.VISIBLE
+                if(albumOrder >= 1){
+                    binding.addTitleButton.visibility = View.GONE
+                }
+                else{
+                    binding.addTitleButton.visibility = View.VISIBLE
+                }
+            }
         }
+    }
+    private fun showTextIsNullDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("text를 입력해주세요.")
+            .setCancelable(false)
+            .setPositiveButton("확인") { dialog, id ->
+                // 다이얼로그 닫기
+                dialog.dismiss()
+            }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+    //엘범 수 12개 이상 추가하려고 하면 막는거
+    private fun showMaxItemCountDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("추가할 수 있는 엘범의 수가 초과되었습니다. (최대 12개)")
+            .setCancelable(false)
+            .setPositiveButton("확인") { dialog, id ->
+                // 다이얼로그 닫기
+                dialog.dismiss()
+            }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+    private fun showExitDialog(){
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("작성하는 내역을 삭제하고 종료하시겠습니까?")
+            .setCancelable(false)
+            .setPositiveButton("확인", DialogInterface.OnClickListener { dialog, id ->
+                // 사용자가 확인 버튼을 누르면 앱 종료
+                callback.isEnabled=false
+                callback.remove()
+                requireActivity().onBackPressed()
+            })
+            .setNegativeButton("취소", DialogInterface.OnClickListener { dialog, id ->
+                // 사용자가 취소 버튼을 누르면 다이얼로그 닫기
+                dialog.dismiss()
+            })
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+    private fun justBack(){
+        callback.isEnabled=false
+        callback.remove()
+        requireActivity().onBackPressed()
     }
 }
 
-fun JSONArray.removeAll() {
-    for (i in 0 until length()) {
-        remove(0)
-    }
-}
 

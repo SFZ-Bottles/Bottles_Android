@@ -13,6 +13,7 @@ import online.bottles.ui.login.LoginActivity
 
 
 class RegisterActivity: BaseActivity() {
+    private val bottlesUrl = "http://14.4.145.80:8000/api/users/"
     lateinit var binding: ActivitySignupBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +58,7 @@ class RegisterActivity: BaseActivity() {
         val client = OkHttpClient.Builder().build()
         //요청
         val request = Request.Builder()
-            .url("http:/?.?.?.?/api/users/")
+            .url(bottlesUrl)
             .post(jsonRequestBody)
             .build()
         val gson = Gson()
@@ -85,7 +86,7 @@ class RegisterActivity: BaseActivity() {
                             showDialog("이미 가입된 이메일 입니다.")
                         }
                         else{
-                            showDialog("작성되지 않은 부분 체크(고쳐야됨)")
+                            showDialog("작성되지 않은 부분 체크")
                         }
 
                     }

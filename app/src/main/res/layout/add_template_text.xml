@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/addTemplate">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/addTemplate"
+    android:padding="1dp">
 
     <RelativeLayout
         android:layout_width="110dp"
@@ -30,17 +31,23 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/add_image" />
+            android:layout_marginTop="16dp"
+            android:src="@drawable/add_text" />
         <TextView
             android:id="@+id/addTemplateText"
             android:layout_below="@+id/addTemplateIcon"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="image"
+            android:text="text"
             android:textColor="@color/white"
             android:textSize="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&lt;0/12&gt;"
+            android:id="@+id/order"
+            android:layout_marginLeft="33dp"/>
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
