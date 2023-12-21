@@ -8,15 +8,9 @@ import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.google.gson.Gson
 import kotlinx.coroutines.*
-import okhttp3.FormBody
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import online.bottles.R
 import online.bottles.api.response.registerResponse
 import online.bottles.databinding.ActivityMainBinding
@@ -38,6 +32,19 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val sharedPreferences = getSharedPreferences("jwt_token", MODE_PRIVATE)
+        val token = sharedPreferences.getString("jwt_token", null)
+        if(token ==""){
+            showDialog("세션이 만료되어 로그인 페이지로 이동합니다.")
+            val intent = Intent(this@MainActivity, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        else{
+            if (token != null) {
+                checkTokenValidity(token)
+            }
+        }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -45,22 +52,6 @@ class MainActivity : BaseActivity() {
         val bottomNavigationView = binding.bottomNavigationView
         //bottomNavigationView.inflateMenu(R.menu.bottom_navigation_view)
         bottomNavigationView.itemIconTintList = null
-
-
-        val sharedPreferences = getSharedPreferences("jwt_token", MODE_PRIVATE)
-        val token = sharedPreferences.getString("jwt_token", null)
-        if (token != null) {
-            checkTokenValidity(token)
-        }else{
-            val intent = Intent(this@MainActivity,LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-        if(!tokenValidity){
-            val intent = Intent(this@MainActivity,LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
 
 
         val mainViewPager = binding.mainViewPager
@@ -152,54 +143,59 @@ class MainActivity : BaseActivity() {
             }
         }
     }
-    fun checkTokenValidity(token:String) {
-        val jsonRequestBody:RequestBody = FormBody.Builder()
-            .add("token",token)
-            .build()
+    fun checkTokenValidity(token: String) {
 
         CoroutineScope(Dispatchers.Main).launch {
-            //코루틴스코프 비동기실행(default//백그라운드 실행은 디폴트로)
-            val response = CoroutineScope(Dispatchers.Default).async {
-                //network
-                getValidity(jsonRequestBody)
-            }.await()//어사인 비동기 방식이 끝나면 await()로 특정 동작을 실행해 주어야 함
-            //메인스레드(network 동작을 하면 안되는 구역)
+            try {
+                // 코루틴 스코프 비동기 실행
+                val result = withContext(Dispatchers.Default) {
+                    // network
+                    getValidity(token)
+                }
+                // 메인 스레드에서 결과 처리
+                if (result) {
+                    // 토큰이 유효한 경우
 
-
+                } else {
+                    // 토큰이 유효하지 않은 경우
+                    showDialog("세션이 만료되어 로그인 페이지로 이동합니다.")
+                    val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                // 예외 처리
+            }
         }
     }
 
-    suspend fun getValidity(jsonRequestBody: RequestBody) {
+    suspend fun getValidity(token: String): Boolean {
         val client = OkHttpClient.Builder().build()
         val request = Request.Builder()
             .url(bottlesUrl)
-            .post(jsonRequestBody)
+            .header("Authorization", token)
             .build()
 
-        return withContext(Dispatchers.IO){
-            val response = client.newCall(request).execute()
-            if(response.isSuccessful){
-                val responseBody = response.body?.string()
-                if (responseBody != null) {
-                    val jsonObject = JSONObject(responseBody)
-                    val message = jsonObject.getString("message")
-                    if(message == "valid token"){
-                        withContext(Dispatchers.Main){
-                            tokenValidity = true
-                        }
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = client.newCall(request).execute()
+                if (response.isSuccessful) {
+                    val responseBody = response.body?.string()
+                    if (responseBody != null) {
+                        val jsonObject = JSONObject(responseBody)
+                        val message = jsonObject.getString("message")
+                        return@withContext message == "valid token"
                     }
-                }else{
-                    tokenValidity = false
                 }
-            } else{
-                withContext(Dispatchers.Main){
-                    showDialog("네트워크 연결이 불안정합니다. 다시 시도해주세요.")
-                }
-
+            } catch (e: Exception) {
+                // 예외 처리
+                e.printStackTrace()
             }
+            return@withContext false
         }
-
     }
+
 
     fun closeMenuFragment() {
         menuFragmentEnable = true
