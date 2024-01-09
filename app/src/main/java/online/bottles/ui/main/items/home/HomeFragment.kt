@@ -15,6 +15,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import online.bottles.R
+import online.bottles.api.response.bottles
+import online.bottles.api.response.bottlesUrl
 import online.bottles.databinding.FragmentPage1HomeBinding
 import online.bottles.ui.base.BaseFragment
 import online.bottles.ui.main.MainActivity
@@ -25,11 +27,10 @@ class HomeFragment : BaseFragment() {
     private var _binding: FragmentPage1HomeBinding? = null
     private val binding get() = _binding!!
 
-    private val bottlesURL = "http://14.4.145.80:8000"
+    private val bottlesURL = bottlesUrl.bottlesURL
     private lateinit var apiService: getAlbums
-
-
-
+    private lateinit var authToken: String
+    private var counts = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,12 +38,21 @@ class HomeFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPage1HomeBinding.inflate(inflater, container, false)
-        val authToken = getAuthToken()
+        authToken = getAuthToken()
         Log.d("AuthToken", "Token: $authToken")
         initRetrofit()
         getAlbums(authToken)
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.homeRefreshButton.setOnClickListener(){
+            getAlbums(authToken)
+        }
+
     }
 
     private fun getAuthToken(): String {
@@ -62,18 +72,23 @@ class HomeFragment : BaseFragment() {
         apiService = retrofit.create(getAlbums::class.java)
     }
 
-    private fun showAlbums(albumData: List<AlbumResponse>) {
-        if (albumData.isNotEmpty()) {
-            for (count in 0 until albumData.size) {
-                val includeTemplate = layoutInflater.inflate(R.layout.bottles_album, null)
-                val setImage = includeTemplate.findViewById<ImageView>(R.id.albumImage)
-                val setTitle = includeTemplate.findViewById<TextView>(R.id.albumText)
-                val setName = includeTemplate.findViewById<TextView>(R.id.albumUserName)
-                binding.albumScroll.addView(includeTemplate)
+    private fun showAlbums(albumData: AlbumsResponse) {
+        Log.d("ShowAlbums", "showAlbums function called on thread: ${Thread.currentThread().name}")
+        var homeRefreLayout = binding.homeRefreshLayout
 
-                loadImageWithGlide(albumData[count].cover_image_url, setImage)
-                setTitle.text = albumData[count].title
-                setName.text = albumData[count].user_id
+        if (albumData.results.isNotEmpty()) {
+            homeRefreLayout.visibility = View.GONE
+            Log.d("ShowAlbums", "Results is not empty")
+            var includeTemplate = LayoutInflater.from(requireContext()).inflate(R.layout.bottles_album, null)
+            var setImage = includeTemplate.findViewById<ImageView>(R.id.albumImage)
+            var setTitle = includeTemplate.findViewById<TextView>(R.id.albumText)
+            var setName = includeTemplate.findViewById<TextView>(R.id.albumUserName)
+            for (albumResponse in albumData.results) {
+                Log.d("ShowAlbums", "Inside loop")
+                binding.albumScroll.addView(includeTemplate)
+                loadImageWithGlide(albumResponse.cover_image_url, setImage)
+                setTitle.text = albumResponse.title
+                setName.text = albumResponse.user_id
             }
         }
     }
@@ -88,14 +103,23 @@ class HomeFragment : BaseFragment() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 val response = CoroutineScope(Dispatchers.Default).async {
-                    MyRepository(apiService).getAlbums(false, 2, 1, "follow", authToken)
+                    MyRepository(apiService).getAlbums(
+                        false,
+                        4,
+                        counts,
+                        "follow",
+                        "-created_at",
+                        authToken)
                 }.await()
 
-                showAlbums(response.result)
+                Log.d("GetAlbums", "Response: $response")
+                showAlbums(response)
+                counts +=4
             } catch (e: Exception) {
                 e.printStackTrace()
                 // 네트워크 오류 또는 예외 처리
                 Log.e("NetworkError", "Network error: ${e.message}")
+                binding.homeRefreshLayout.visibility=View.VISIBLE
             }
         }
     }
@@ -104,8 +128,15 @@ class HomeFragment : BaseFragment() {
         (activity as? MainActivity)?.homeFragmentOnResume()
     }
     class MyRepository(private val apiService: getAlbums) {
-        suspend fun getAlbums(is_private:Boolean,num:Int,counts:Int,target:String,Authorization: String): AlbumsResponse {
-            return apiService.getAlbums(is_private,num,counts,target,Authorization)
+        suspend fun getAlbums(
+            isPrivate: Boolean,
+            num: Int,
+            counts: Int,
+            target: String,
+            orderBy:String,
+            authToken: String
+        ): AlbumsResponse {
+            return apiService.getAlbums(isPrivate,num,counts,target,orderBy,authToken)
         }
     }
 

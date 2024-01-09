@@ -23,6 +23,7 @@
             android:background="@drawable/border1">
 
             <EditText
+                android:id="@+id/searchEdit"
                 android:drawableStart="@drawable/search_symbol2"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"

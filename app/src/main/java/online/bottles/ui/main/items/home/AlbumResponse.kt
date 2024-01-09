@@ -2,7 +2,7 @@ package online.bottles.ui.main.items.home
 
 data class AlbumsResponse(
     val num: Int,
-    val result: List<AlbumResponse>
+    val results: List<AlbumResponse>
 )
 
 data class AlbumResponse(

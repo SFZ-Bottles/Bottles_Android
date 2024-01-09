@@ -1,18 +1,22 @@
 package online.bottles.ui.main
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import kotlinx.coroutines.*
+import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody
 import online.bottles.R
-import online.bottles.api.response.registerResponse
+import online.bottles.api.response.bottlesUrl
 import online.bottles.databinding.ActivityMainBinding
 import online.bottles.ui.base.BaseActivity
 import online.bottles.ui.login.LoginActivity
@@ -20,33 +24,29 @@ import online.bottles.ui.main.items.*
 import online.bottles.ui.main.items.create.CreateAnAlbumFragment
 import online.bottles.ui.main.items.home.HomeFragment
 import online.bottles.ui.main.items.option.MenuFragment
+import online.bottles.ui.main.items.search.SearchFragment
 import org.json.JSONObject
 
 class MainActivity : BaseActivity() {
 
     lateinit var binding: ActivityMainBinding
-    private var bottlesUrl = "http://14.4.145.80:8000/api/auth/validate-token/"
+    private var bottlesURL =bottlesUrl.bottlesValid
     private var currentViewPagerPosition = 0
-    private var tokenValidity = true
     private var menuFragmentEnable = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val sharedPreferences = getSharedPreferences("jwt_token", MODE_PRIVATE)
-        val token = sharedPreferences.getString("jwt_token", null)
-        if(token ==""){
-            showDialog("세션이 만료되어 로그인 페이지로 이동합니다.")
-            val intent = Intent(this@MainActivity, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-        else{
-            if (token != null) {
-                checkTokenValidity(token)
-            }
-        }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val sharedPreferences = getSharedPreferences("jwt_token", MODE_PRIVATE)
+        val token = sharedPreferences.getString("jwt_token", null)
+        Log.d("TokenCheck", "Token : $token")
+        if(token != null){
+            getValidity(token)
+        }
+
+
+
+
 
         // BottomNavigationView 스타일 설정
         val bottomNavigationView = binding.bottomNavigationView
@@ -143,57 +143,58 @@ class MainActivity : BaseActivity() {
             }
         }
     }
-    fun checkTokenValidity(token: String) {
+
+    fun getValidity(token: String) {
+
+
+        val jsonRequestBody:RequestBody = FormBody.Builder()
+            .add("token","Plz refer to header")
+            .build()
 
         CoroutineScope(Dispatchers.Main).launch {
-            try {
-                // 코루틴 스코프 비동기 실행
-                val result = withContext(Dispatchers.Default) {
-                    // network
-                    getValidity(token)
-                }
-                // 메인 스레드에서 결과 처리
-                if (result) {
-                    // 토큰이 유효한 경우
-
-                } else {
-                    // 토큰이 유효하지 않은 경우
-                    showDialog("세션이 만료되어 로그인 페이지로 이동합니다.")
-                    val intent = Intent(this@MainActivity, LoginActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                // 예외 처리
+            val response = CoroutineScope(Dispatchers.Default).async {
+                checkValidity(token,jsonRequestBody)
+            }.await()
+            if(response != "valid token"){
+                showSessionExpiredDialog()
+            }else{
+                showDialog("(확인)유효한 토큰")
             }
         }
     }
-
-    suspend fun getValidity(token: String): Boolean {
+     suspend fun checkValidity(token: String,jsonRequestBody: RequestBody): String {
+        //client
         val client = OkHttpClient.Builder().build()
+        //요청
+
         val request = Request.Builder()
-            .url(bottlesUrl)
-            .header("Authorization", token)
+            .url(bottlesURL)
+            .post(jsonRequestBody)
+            .header("Authorization",token)
             .build()
+
 
         return withContext(Dispatchers.IO) {
             try {
                 val response = client.newCall(request).execute()
-                if (response.isSuccessful) {
+                if(response.isSuccessful){
                     val responseBody = response.body?.string()
-                    if (responseBody != null) {
+                    if(responseBody!=null){
                         val jsonObject = JSONObject(responseBody)
                         val message = jsonObject.getString("message")
-                        return@withContext message == "valid token"
+
+                        return@withContext message
+                    } else {
+                        showDialog("서버 응답 오류 다시 시도해 주세요")
                     }
+                } else {
+                    showDialog("서버 응답 오류")
                 }
-            } catch (e: Exception) {
-                // 예외 처리
+            }catch (e:Exception){
                 e.printStackTrace()
             }
-            return@withContext false
-        }
+        }.toString()
+
     }
 
 
@@ -322,13 +323,24 @@ class MainActivity : BaseActivity() {
     }
 
     fun showDialog(message: String) {
-        CoroutineScope(Dispatchers.Main).launch {
-            val dialog = AlertDialog.Builder(this@MainActivity)
-                .setMessage(message)
-                .setPositiveButton("확인") { _, _ -> }
-                .create()
-            dialog.show()
-        }
+        val builder = AlertDialog.Builder(this)
+            .setMessage(message)
+            .setPositiveButton("확인",DialogInterface.OnClickListener(){dialog,id ->
+                dialog.dismiss()
+            })
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+    fun showSessionExpiredDialog(){
+        val builder = AlertDialog.Builder(this)
+            .setMessage("세션이 만료되어 로그인 페이지로 이동합니다..")
+            .setPositiveButton("확인",DialogInterface.OnClickListener(){dialog,id ->
+                val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            })
+        val alertDialog = builder.create()
+        alertDialog.show()
     }
 }
 

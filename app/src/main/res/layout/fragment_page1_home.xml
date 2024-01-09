@@ -7,18 +7,19 @@
     tools:context=".ui.main.MainActivity"
     android:id="@+id/page"
     >
-
-
     <androidx.viewpager2.widget.ViewPager2
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/homePage"/>
+
+
     <androidx.core.widget.NestedScrollView
         android:layout_marginBottom="82dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:visibility="visible"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +29,34 @@
 
         </LinearLayout>
 
+
     </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/homeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="팔로우한 친구가 없거나, 불러오기를 실패했습니다."/>
+        <TextView
+            android:padding = "10dp"
+            android:id="@+id/homeRefreshButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="새로 고침"
+            android:textColor="@color/bottlesPrimary"
+            android:background="@drawable/border9_refresh_button_blue"
+            android:textSize="20dp"
+            />
+
+    </LinearLayout>
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+

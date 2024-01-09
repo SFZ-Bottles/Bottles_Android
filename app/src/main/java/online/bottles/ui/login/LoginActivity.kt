@@ -10,6 +10,7 @@ import android.view.View
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import okhttp3.*
+import online.bottles.api.response.bottlesUrl
 import online.bottles.databinding.ActivityLoginBinding
 import online.bottles.ui.base.BaseActivity
 import online.bottles.ui.register.RegisterActivity
@@ -19,7 +20,7 @@ import online.bottles.ui.main.MainActivity
 
 class LoginActivity : BaseActivity() {
     lateinit var binding: ActivityLoginBinding
-    private val bottlesUrl = "http://14.4.145.80:8000/api/auth/login/"
+    private val bottlesURL = bottlesUrl.bottlesLogin
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -69,7 +70,7 @@ class LoginActivity : BaseActivity() {
         val client = OkHttpClient.Builder().build()
 
         val request = Request.Builder()
-            .url(bottlesUrl)
+            .url(bottlesURL)
             .post(jsonRequestBody)
             .build()
 
