@@ -23,6 +23,7 @@ import online.bottles.ui.login.LoginActivity
 import online.bottles.ui.main.items.*
 import online.bottles.ui.main.items.create.CreateAnAlbumFragment
 import online.bottles.ui.main.items.home.HomeFragment
+import online.bottles.ui.main.items.message.MessageFragment
 import online.bottles.ui.main.items.option.MenuFragment
 import online.bottles.ui.main.items.search.SearchFragment
 import org.json.JSONObject

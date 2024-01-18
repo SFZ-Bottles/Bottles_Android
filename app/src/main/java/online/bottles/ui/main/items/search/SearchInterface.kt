@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface searchUsears {
@@ -13,7 +14,17 @@ interface searchUsears {
         @Query("num") num: Int,
         @Header("Authorization") authToken: String
     ): Response<SearchResponse>
+
+    @GET("/api/albums/{id}/")
+    suspend fun getUserProfile(
+        @Path("id") userId : String,
+        @Header("Authorization") authToken: String
+    ):Response<UserProfileResponse>
 }
+data class UserProfileResponse(
+    @SerializedName("name") val message: String//그냥 더미임 지워야됨
+
+)
 
 data class SearchResponse(
     @SerializedName("message") val message : String,

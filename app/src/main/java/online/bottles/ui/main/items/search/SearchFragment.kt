@@ -11,19 +11,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.widget.addTextChangedListener
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import online.bottles.R
-import online.bottles.api.response.albumResponse
 import online.bottles.api.response.bottlesUrl
-import online.bottles.api.response.loginResponse
 import online.bottles.databinding.FragmentPage2SearchBinding
 import online.bottles.ui.base.BaseFragment
 import online.bottles.ui.main.MainActivity
-import online.bottles.ui.main.items.home.getAlbums
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -113,7 +109,9 @@ class SearchFragment : BaseFragment(){
                     includeTemplate.findViewById<TextView>(R.id.userProfileIntro)
 
                 binding.searchUserProfile.addView(includeTemplate)
-
+                includeTemplate.setOnClickListener(){
+                    openUserProfileFragment(searchResponse.id)
+                }
 
                 loadImageWithGlide(searchResponse.avatar, setProfUserImage)
 
@@ -122,6 +120,8 @@ class SearchFragment : BaseFragment(){
             }
         }
     }
+    private fun openUserProfileFragment(id:)
+
     private fun loadImageWithGlide(imageUrl: String, imageView: ImageView) {
         Glide.with(requireActivity())
             .load(imageUrl)

@@ -1,4 +1,4 @@
-package online.bottles.ui.main.items
+package online.bottles.ui.main.items.message
 
 import android.os.Bundle
 import android.view.LayoutInflater
