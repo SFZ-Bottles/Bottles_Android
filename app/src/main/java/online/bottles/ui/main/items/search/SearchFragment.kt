@@ -61,7 +61,10 @@ class SearchFragment : BaseFragment(){
             }
 
             override fun afterTextChanged(s: Editable?) {
-                // 텍스트 변경 후에 수행할 작업
+                val searchText = s.toString()
+                if (searchText.isBlank()) {
+                    binding.searchUserProfile.removeAllViews()
+                }
             }})
     }
 
@@ -72,7 +75,7 @@ class SearchFragment : BaseFragment(){
     private fun performSearch(query: String){
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val response = SearchApi(apiService).searchUsers(query, 3, authToken)
+                val response = SearchApi(apiService).searchUsers(query, 10, authToken)
 
                 if (response.isSuccessful) {
                     val searchResults = response.body()?.result ?: emptyList()
@@ -89,20 +92,31 @@ class SearchFragment : BaseFragment(){
                 // 네트워크 오류 또는 예외 처리
                 Log.e("NetworkError", "Search error: ${e.message}")
                 // 여기에 사용자에게 알림을 주거나 다른 예외 처리 로직을 추가
+                return@launch
             }
         }
     }
     private fun updateSearchResults(results: List<UserResult>) {
         // 여기에서 검색 결과를 사용해 UI를 업데이트
         Log.d("ShowUsers","Result is not empty")
+        binding.searchUserProfile.removeAllViews()
         if(results.isNotEmpty()){
-            var includeTemplate = LayoutInflater.from(requireContext()).inflate(R.layout.bottles_search_user,null)
-            var setProfUserImage = includeTemplate.findViewById<ImageView>(R.id.profUserImage)
-            var setUserProfileName = includeTemplate.findViewById<TextView>(R.id.userProfileName)
-            var setUserProfileIntro = includeTemplate.findViewById<TextView>(R.id.userProfileIntro)
-            for(searchResponse in results){
+            for (searchResponse in results) {
+                // 새로운 뷰를 추가
+                val includeTemplate =
+                    LayoutInflater.from(requireContext()).inflate(R.layout.bottles_search_user, null)
+                val setProfUserImage =
+                    includeTemplate.findViewById<ImageView>(R.id.profUserImage)
+                val setUserProfileName =
+                    includeTemplate.findViewById<TextView>(R.id.userProfileName)
+                val setUserProfileIntro =
+                    includeTemplate.findViewById<TextView>(R.id.userProfileIntro)
+
                 binding.searchUserProfile.addView(includeTemplate)
-                loadImageWithGlide(searchResponse.avatar,setProfUserImage)
+
+
+                loadImageWithGlide(searchResponse.avatar, setProfUserImage)
+
                 setUserProfileName.text = searchResponse.id
                 setUserProfileIntro.text = searchResponse.info
             }

@@ -8,4 +8,5 @@ object bottlesUrl{
     const val bottlesSearch = "http://14.4.145.80:8080/api/search/user/"
     const val bottlesLogin = "http://14.4.145.80:8080/api/auth/login/"
     const val bottlesRegister ="http://14.4.145.80:8000/api/users/"
+    const val bottlesLogout = "http://14.4.145.80:8000/api/auth/logout/"
 }

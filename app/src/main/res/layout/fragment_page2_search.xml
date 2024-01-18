@@ -44,9 +44,6 @@
                     android:orientation="vertical"
                     android:id="@+id/searchUserProfile"
                     >
-                    <include
-                        layout="@layout/bottles_search_user"/>
-
 
 
 

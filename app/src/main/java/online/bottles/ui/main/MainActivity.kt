@@ -144,8 +144,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    fun getValidity(token: String) {
-
+    private fun getValidity(token: String) {
 
         val jsonRequestBody:RequestBody = FormBody.Builder()
             .add("token","Plz refer to header")

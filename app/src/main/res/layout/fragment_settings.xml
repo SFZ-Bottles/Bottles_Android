@@ -85,6 +85,17 @@
                 android:layout_marginLeft="60dp"
                 />
             <TextView
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="로그아웃"
+                android:textSize="25dp"
+                android:textColor="@color/bottlesPrimary"
+                android:layout_gravity="left"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="60dp"
+                />
+            <TextView
                 android:id="@+id/secession"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
