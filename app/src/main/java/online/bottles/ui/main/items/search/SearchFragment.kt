@@ -120,7 +120,9 @@ class SearchFragment : BaseFragment(){
             }
         }
     }
-    private fun openUserProfileFragment(id:)
+    private fun openUserProfileFragment(id : String){
+
+    }
 
     private fun loadImageWithGlide(imageUrl: String, imageView: ImageView) {
         Glide.with(requireActivity())

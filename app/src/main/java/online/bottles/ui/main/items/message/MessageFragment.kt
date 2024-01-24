@@ -31,13 +31,7 @@ class MessageFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.searchUserProfile.setOnClickListener(){
-            val SendMessage= DirectMessage()
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.page, SendMessage)
-            transaction.addToBackStack(null)
-            transaction.commit()
 
-        }
+
     }
 }

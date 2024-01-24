@@ -30,7 +30,6 @@ import org.json.JSONObject
 class CreateAnAlbumFragment : BaseFragment() {
     private lateinit var binding: FragmentCreateAnAlbumBinding
     private val REQ_GALLERY = 1001
-    private var uri = ""
     private val REQ_STORAGE_PERMISSION = 1002
     private var selectedImageType = 0 //0->선언안됨, 1->titleImage,2->image
     private var albumOrder = 0// createAlbum Object들의 순서를 명시

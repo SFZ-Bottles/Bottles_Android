@@ -26,7 +26,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class HomeFragment : BaseFragment() {
     private var _binding: FragmentPage1HomeBinding? = null
     private val binding get() = _binding!!
-
     private val bottlesURL = bottlesUrl.bottlesURL
     private lateinit var apiService: getAlbums
     private lateinit var authToken: String
@@ -39,7 +38,6 @@ class HomeFragment : BaseFragment() {
     ): View? {
         _binding = FragmentPage1HomeBinding.inflate(inflater, container, false)
         authToken = getAuthToken()
-        Log.d("AuthToken", "Token: $authToken")
         initRetrofit()
         getAlbums(authToken)
 
