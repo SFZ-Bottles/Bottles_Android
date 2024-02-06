@@ -40,7 +40,6 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
         val sharedPreferences = getSharedPreferences("jwt_token", MODE_PRIVATE)
         val token = sharedPreferences.getString("jwt_token", null)
-        Log.d("TokenCheck", "Token : $token")
         if(token != null){
             getValidity(token)
         }
@@ -162,7 +161,7 @@ class MainActivity : BaseActivity() {
             }
         }
     }
-     suspend fun checkValidity(token: String,jsonRequestBody: RequestBody): String {
+     private suspend fun checkValidity(token: String, jsonRequestBody: RequestBody): String {
         //client
         val client = OkHttpClient.Builder().build()
         //요청

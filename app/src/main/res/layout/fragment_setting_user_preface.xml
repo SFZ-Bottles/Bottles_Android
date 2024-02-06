@@ -34,14 +34,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:orientation="horizontal">
+
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_marginTop="5dp"
+                    android:id="@+id/profUserImage"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/test"
-                    android:id="@+id/profUserImage"
+                    android:layout_marginTop="5dp"
                     android:background="@drawable/circle"
-                    />
+                    android:src="@drawable/test" />
 
                 <TextView
                     android:id="@+id/profileImageEdit"
@@ -80,9 +80,10 @@
                 android:layout_gravity="left"
                 android:orientation="horizontal">
                <TextView
+                   android:id="@+id/userId"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="@string/userName"
+                   android:text="userName"
                    android:textSize="25dp"
                    />
                 <TextView
@@ -142,9 +143,10 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/userEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/userEmail"
+                    android:text="userEmail"
                     android:textSize="25dp" />
 
                 <TextView
@@ -175,9 +177,10 @@
                 android:layout_gravity="left"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/userName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/userName"
+                    android:text="userName"
                     android:textSize="25dp"/>
 
                 <TextView
@@ -208,9 +211,10 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/userInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/userInfo"
+                    android:text="userInfo"
                     android:textSize="25dp"
                     />
                 <TextView

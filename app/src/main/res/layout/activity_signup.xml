@@ -69,14 +69,16 @@
                 android:layout_height="wrap_content"
                 android:text="비밀번호를 생성하세요."
                 android:textSize="15dp"/>
+
             <EditText
-                android:background="@drawable/border2"
                 android:id="@+id/signPassword"
-                android:maxLength="30"
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:inputType="textPassword"/>
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border2"
+                android:inputType="textPassword"
+                android:maxLength="30" />
+
             <TextView
                 android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"

@@ -16,15 +16,12 @@ interface searchUsears {
     ): Response<SearchResponse>
 
     @GET("/api/albums/{id}/")
-    suspend fun getUserProfile(
+    suspend fun getUsersProfile(
         @Path("id") userId : String,
         @Header("Authorization") authToken: String
-    ):Response<UserProfileResponse>
+    )
 }
-data class UserProfileResponse(
-    @SerializedName("name") val message: String//그냥 더미임 지워야됨
 
-)
 
 data class SearchResponse(
     @SerializedName("message") val message : String,

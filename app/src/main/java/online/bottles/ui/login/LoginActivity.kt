@@ -89,6 +89,11 @@ class LoginActivity : BaseActivity() {
                         val editor = sharedPreferences.edit()
                         editor.putString("jwt_token", token.token)
                         editor.apply()
+                        val sharedPreferencesForUser =
+                            getSharedPreferences("user",Context.MODE_PRIVATE)
+                        val editorForId = sharedPreferencesForUser.edit()
+                        editorForId.putString("userId",binding.editEmail.text.toString())
+                        editorForId.apply()
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)
                         finish()
