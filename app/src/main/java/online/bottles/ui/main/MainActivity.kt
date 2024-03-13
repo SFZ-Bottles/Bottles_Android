@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
@@ -20,10 +19,10 @@ import online.bottles.api.response.bottlesUrl
 import online.bottles.databinding.ActivityMainBinding
 import online.bottles.ui.base.BaseActivity
 import online.bottles.ui.login.LoginActivity
-import online.bottles.ui.main.items.*
 import online.bottles.ui.main.items.create.CreateAnAlbumFragment
 import online.bottles.ui.main.items.home.HomeFragment
 import online.bottles.ui.main.items.message.MessageFragment
+import online.bottles.ui.main.items.mypage.MyPageFragment
 import online.bottles.ui.main.items.option.MenuFragment
 import online.bottles.ui.main.items.search.SearchFragment
 import org.json.JSONObject

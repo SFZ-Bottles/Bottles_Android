@@ -21,8 +21,8 @@ interface GetUserProfile{
     suspend fun setUserProfile(
         @Path("id") userId: String,
         @Header("Authorization") authToken: CharSequence,
-        newUserId: CharSequence,
         @Query("id") id: String,
+        @Query("password") password : String,
         @Query("name") name: CharSequence,
         @Query("email") email: CharSequence,
         @Query("info") info: CharSequence,

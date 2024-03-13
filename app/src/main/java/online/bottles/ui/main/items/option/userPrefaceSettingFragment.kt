@@ -38,12 +38,13 @@ class userPrefaceSettingFragment : BaseFragment() {
     private var profUserImageUri : Uri? = null
     private lateinit var getUserInterfaceApi : GetUserProfile
     private lateinit var authToken: String
-    private lateinit var userPassword : String
+    private var userPassword: String? = null
     private lateinit var userId : String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        userPassword = null.toString()
         userId = getSharedUserInterface().orEmpty()
         binding = FragmentSettingUserPrefaceBinding.inflate(inflater, container, false)
         authToken = getAuthToken()
@@ -264,28 +265,30 @@ class userPrefaceSettingFragment : BaseFragment() {
     }
 */
     private fun setUserProfile() {
+        Log.d("UserPrefaceSetting", "setUserProfile started.")
         val newUserId = binding.userId.text.toString()
         val newUserPassword = userPassword
         val newUserName = binding.userName.text.toString()
         val newUserEmail = binding.userEmail.text.toString()
         val newUserInFo = binding.userInfo.text.toString()
         val newUserAvatar = profUserImageUri
-        val isPasswordChanged = newUserPassword != null && newUserPassword.isNotEmpty()
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = if (isPasswordChanged) {
+                Log.d("UserPrefaceSetting", "Sending network request.")
+                val response = if (userPassword != null) {
                     getUserInterfaceApi.setUserProfile(
                         userId,
                         authToken,
                         newUserId,
-                        newUserPassword,
+                        newUserPassword!!,//null 값을 가질 수 없음.
                         newUserName,
                         newUserEmail,
                         newUserInFo,
                         newUserAvatar
                     )
                 } else {
+
                     getUserInterfaceApi.setUserProfileWithoutPassword(
                     userId,
                     authToken,
@@ -304,6 +307,7 @@ class userPrefaceSettingFragment : BaseFragment() {
                         val sharedPreferenceToToken =
                         requireActivity().getSharedPreferences("jwt_token", Context.MODE_PRIVATE)
                         sharedPreferenceToToken.edit().putString("jwt_token", newToken).apply()
+
                         val intent = Intent(requireActivity(), MainActivity::class.java).apply {
                         //이전의 동작으로 쌓인 모든 stack을 지우고 새로 시작한 것처럼  mainActivity에서 다시 시작
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -388,13 +392,15 @@ class userPrefaceSettingFragment : BaseFragment() {
     }
     private fun showSetUserDialog(){
         val builder = AlertDialog.Builder(requireActivity())
-            .setMessage("정말 수정하시겠습니까?")
-            .setPositiveButton("확인",DialogInterface.OnClickListener(){dialog,id ->
+        builder.setMessage("정말 수정하시겠습니까?")
+            .setPositiveButton("확인") { dialog, id ->
+                Log.d("UserPrefaceSetting", "Confirm button clicked. Calling setUserProfile.")
                 setUserProfile()
-            })
-            .setNegativeButton("취소", DialogInterface.OnClickListener(){dialog,id->
+                Log.d("UserPrefaceSetting", "setUserProfile called.")
+            }
+            .setNegativeButton("취소") { dialog, id ->
                 dialog.dismiss()
-            })
+            }
         val alertDialog = builder.create()
         alertDialog.show()
     }

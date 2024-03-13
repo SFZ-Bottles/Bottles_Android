@@ -13,17 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
-              android:paddingTop="2dp"
-             android:paddingLeft="10dp"
-             android:paddingBottom="10dp"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:text="DirectMessage"
-            android:textStyle="bold"
-            android:textSize="30dp"
-            android:textColor="@color/bottlesPrimary"
-        />
         <View
             android:layout_width="200dp"
             android:layout_height="2dp"
@@ -32,7 +21,6 @@
 
 
     <androidx.core.widget.NestedScrollView
-        android:layout_marginTop="65dp"
         android:layout_marginBottom="82dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -47,10 +35,6 @@
             <include
                 android:id="@+id/dm"
                 layout="@layout/bottles_message_user"/>
-
-
-
-
 
         </LinearLayout>
 
