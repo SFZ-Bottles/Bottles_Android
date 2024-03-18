@@ -50,6 +50,7 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.homeRefreshButton.setOnClickListener(){
+            binding.albumScroll.removeAllViews()
             getAlbums(authToken)
         }
 
@@ -85,10 +86,14 @@ class HomeFragment : BaseFragment() {
             var setName = includeTemplate.findViewById<TextView>(R.id.albumUserName)
             for (albumResponse in albumData.results) {
                 Log.d("ShowAlbums", "Inside loop")
-                binding.albumScroll.addView(includeTemplate)
+                val includeTemplate = LayoutInflater.from(requireContext()).inflate(R.layout.bottles_album, null) // 루프 내부로 이동
+                val setImage = includeTemplate.findViewById<ImageView>(R.id.albumImage)
+                val setTitle = includeTemplate.findViewById<TextView>(R.id.albumText)
+                val setName = includeTemplate.findViewById<TextView>(R.id.albumUserName)
                 loadImageWithGlide(albumResponse.cover_image_url, setImage)
                 setTitle.text = albumResponse.title
                 setName.text = albumResponse.user_id
+                binding.albumScroll.addView(includeTemplate)
             }
         }
     }
